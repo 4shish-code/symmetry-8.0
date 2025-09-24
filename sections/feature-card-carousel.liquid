@@ -1,0 +1,138 @@
+{% schema %}
+{
+  "name": "Feature Card Carousel",
+  "tag": "section",
+  "class": "feature-card-carousel",
+  "settings": [
+    { "type": "text", "id": "section_title", "label": "Section Title", "default": "Features" }
+  ],
+  "max_blocks": 20,
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "description", "label": "Description" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature Card Carousel",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.card-carousel-section {
+  max-width: 1780px;
+  margin: 0 auto;
+  padding: 40px 60px;
+  box-sizing: border-box;
+}
+.card-carousel-title {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30px;
+  font-family: 'Helvetica Neue', sans-serif;
+  position: relative;
+  z-index: 1;
+}
+.card-carousel-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+.card-carousel-wrapper::-webkit-scrollbar {
+  display: none; /* Safari/Chrome */
+}
+.card-carousel {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+}
+.card-item {
+  flex: 0 0 340px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 16px;
+  text-align: left;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+.card-item img {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+.card-item h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+.card-item p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+  margin: 0;
+}
+
+/* -------- 平板 -------- */
+@media (max-width: 1024px) {
+  .card-carousel-section {
+    padding: 30px 20px;
+  }
+  .card-carousel-title {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+  .card-item {
+    flex: 0 0 70%;
+    max-width: 300px;
+  }
+  .card-item img {
+    max-height: 160px;
+  }
+}
+
+/* -------- 手机 -------- */
+@media (max-width: 600px) {
+  .card-item {
+    flex: 0 0 75%;
+    max-width: 280px;
+  }
+  .card-item img {
+    max-height: 140px;
+  }
+  .card-carousel-title {
+    font-size: 20px;
+  }
+}
+</style>
+
+<div class="card-carousel-section">
+  {% if section.settings.section_title != blank %}
+    <div class="card-carousel-title">{{ section.settings.section_title }}</div>
+  {% endif %}
+  <div class="card-carousel-wrapper">
+    <div class="card-carousel">
+      {% for block in section.blocks %}
+        <div class="card-item">
+          {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.title }}">
+          {% endif %}
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

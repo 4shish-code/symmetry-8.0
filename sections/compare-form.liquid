@@ -1,0 +1,206 @@
+{% schema %}
+{
+  "name": "Product Comparison Table",
+  "tag": "section",
+  "class": "section-product-comparison",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Comparison Table",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.table-scroll-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 1780px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+@media (max-width: 1024px) {
+  .table-scroll-wrapper {
+    padding: 0;
+  }
+}
+
+.product-comparison-table {
+  width: 100%;
+  min-width: 600px;
+  max-width: none;
+  margin: 40px 0;
+  border-collapse: collapse;
+  font-family: 'Helvetica Neue', sans-serif;
+  text-align: center;
+}
+
+.product-comparison-table img {
+  max-width: 100px;
+  height: auto;
+}
+.comparison-header {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+  margin: 0 1rem;
+}
+.custom-date-compare {
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.product-comparison-table th,
+.product-comparison-table td {
+  font-size: 14px;
+  /* padding: 16px 8px; */
+  border-bottom: 1px solid #ddd;
+}
+  
+.product-comparison-table th {
+  font-weight: bold;
+  background-color: #fff;
+}
+
+/* first 2 columns sticky */
+  
+.product-comparison-table {
+  --th-width: 100px; 
+}
+
+.product-comparison-table th,
+.comparison-main-product
+  {
+  position: sticky;
+  background: white;
+}
+  
+.product-comparison-table th {
+  left: 0;
+  z-index: 99;
+  width: var(--th-width);
+}
+  
+.product-comparison-table td {
+  z-index: 98;
+}
+
+.comparison-main-product {
+  font-weight: bold;
+  left: var(--th-width);
+}
+
+  
+@media screen and (max-width: 700px) {
+  .product-comparison-table {
+    --th-width: 85px;
+    font-size: 12px;
+  }
+  
+  .comparison-main-product {
+    width: 100px;
+  }
+}
+</style>
+
+<div class="comparison-header">Price & Performance Showdown</div>
+<div class="custom-date-compare">{{ product.metafields.custom.date_compare }}</div>
+
+<div class="table-scroll-wrapper">
+  <table class="product-comparison-table">
+    <tr>
+      <th></th>
+      <td class="comparison-main-product">
+        <img src="{{ product.metafields.custom.bikefeatures.value.image | file_url }}" alt="{{ product.title }}" /></td>
+        {%  for cmp_bike in product.metafields.custom.compare_bikes.value %}
+          <td><img src="{{ cmp_bike.image | file_url }}" /></td>
+        {% endfor %}
+    </tr>
+    
+    <tr>
+      <th></th>
+      <td class="comparison-main-product">{{ product.title }}</td>
+      {% for cmp_bike in product.metafields.custom.compare_bikes.value %}
+        <td>{{ cmp_bike.title }}</td>
+      {% endfor %}
+    </tr>
+    
+    <tr>
+      <th>Price</th>
+      <td class="comparison-main-product">{{ product.metafields.custom.bikefeatures.value.price }}</td>
+      {% for cmp_bike in product.metafields.custom.compare_bikes.value %}
+        <td>{{ cmp_bike.price }}</td>
+      {% endfor %}
+    </tr>
+    
+    <tr>
+      <th>Range</th>
+      <td class="comparison-main-product">{{ product.metafields.custom.bikefeatures.value.range }}</td>
+      {% for cmp_bike in product.metafields.custom.compare_bikes.value %}
+        <td>{{ cmp_bike.range }}</td>
+      {% endfor %}
+    </tr>
+    
+    <tr>
+      <th>Battery</th>
+      <td class="comparison-main-product">{{ product.metafields.custom.bikefeatures.value.battery }}</td>
+      {% for cmp_bike in product.metafields.custom.compare_bikes.value %}
+        <td>{{ cmp_bike.battery }}</td>
+      {% endfor %}
+    </tr>
+    
+    <tr>
+      <th>Capacity</th>
+      <td class="comparison-main-product">{{ product.metafields.custom.bikefeatures.value.capacity }}</td>
+      {% for cmp_bike in product.metafields.custom.compare_bikes.value %}
+        <td>{{ cmp_bike.capacity }}</td>
+      {% endfor %}
+    </tr>
+
+    <tr>
+      <th>Sensor</th>
+      <td class="comparison-main-product">{{ product.metafields.custom.bikefeatures.value.sensor }}</td>
+      {% for cmp_bike in product.metafields.custom.compare_bikes.value %}
+        <td>{{ cmp_bike.sensor }}</td>
+      {% endfor %}
+    </tr>
+
+    <tr>
+      <th>Speed</th>
+      <td class="comparison-main-product">{{ product.metafields.custom.bikefeatures.value.speed }}</td>
+      {% for cmp_bike in product.metafields.custom.compare_bikes.value %}
+        <td>{{ cmp_bike.speed }}</td>
+      {% endfor %}
+    </tr>
+
+    <tr>
+      <th>Derailleur</th>
+      <td class="comparison-main-product">{{ product.metafields.custom.bikefeatures.value.derailleur }}</td>
+      {% for cmp_bike in product.metafields.custom.compare_bikes.value %}
+        <td>{{ cmp_bike.derailleur }}</td>
+      {% endfor %}
+    </tr>
+
+    <tr>
+      <th>Front Fork</th>
+      <td class="comparison-main-product">{{ product.metafields.custom.bikefeatures.value.front_fork }}</td>
+      {% for cmp_bike in product.metafields.custom.compare_bikes.value %}
+        <td>{{ cmp_bike.front_fork }}</td>
+      {% endfor %}
+    </tr>
+
+    <tr>
+      <th>Brakes</th>
+      <td class="comparison-main-product">{{ product.metafields.custom.bikefeatures.value.brakes }}</td>
+      {% for cmp_bike in product.metafields.custom.compare_bikes.value %}
+        <td>{{ cmp_bike.brakes }}</td>
+      {% endfor %}
+    </tr>
+  </table>
+</div>
